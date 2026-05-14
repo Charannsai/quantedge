@@ -64,7 +64,10 @@ export default function Dashboard() {
   const [marketPhase, setMarketPhase] = useState<'active' | 'post'>('active');
   
   const opportunities = useScanner();
-  const { candles, livePrice } = useMarketData(selectedTrade?.symbol || null);
+  const { candles, livePrice, error: marketError } = useMarketData(
+    selectedTrade?.symbol || null, 
+    (selectedTrade as any)?.token || null
+  );
 
   // Set initial trade
   useEffect(() => {
@@ -234,18 +237,21 @@ export default function Dashboard() {
             <div className="p-6 border-b border-border flex items-center justify-between bg-muted/30">
               <div className="flex items-center gap-4">
                 <div>
-                  <h1 className="text-2xl font-black tracking-tighter">
+                  <h1 className="text-xl font-bold tracking-tight">
                     {selectedTrade ? selectedTrade.symbol : "Select an instrument"}
                   </h1>
-                  {selectedTrade && (
-                    <div className="flex items-center gap-2 text-xs font-bold text-gray-500 uppercase">
+                  {marketError && (
+                    <div className="text-[10px] font-bold text-error uppercase tracking-wider animate-pulse">
+                      Offline: {marketError}
+                    </div>
+                  )}
+                  {selectedTrade && !marketError && (
+                    <div className="flex items-center gap-2 text-[10px] font-medium text-gray-400 uppercase tracking-wider">
                       <span className={selectedTrade.direction === 'bullish' ? 'text-success' : 'text-error'}>
-                        {selectedTrade.direction} Trend
+                        {selectedTrade.direction}
                       </span>
                       <span>•</span>
-                      <span>Vol: 1.2M</span>
-                      <span>•</span>
-                      <span>ATR: 4.2</span>
+                      <span>Live Feed</span>
                     </div>
                   )}
                 </div>
@@ -277,7 +283,12 @@ export default function Dashboard() {
                 )}
               </div>
             </div>
-            <div className="p-4 h-[450px]">
+            <div className="p-4 h-[450px] relative">
+              {marketError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
+                   <div className="text-sm font-bold text-gray-400">Waiting for AngelOne Stream...</div>
+                </div>
+              )}
               <TradingChart data={candles} />
             </div>
             

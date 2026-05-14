@@ -2,14 +2,14 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
-  --accent: #111111;
-  --muted: #fafafa;
-  --border: #f0f0f0;
-  --success: #00c853;
-  --error: #ff3d00;
-  --success-muted: #e8f5e9;
-  --error-muted: #fbe9e7;
+  --foreground: #111827;
+  --accent: #374151;
+  --muted: #f9fafb;
+  --border: #f3f4f6;
+  --success: #10b981;
+  --error: #ef4444;
+  --success-muted: #ecfdf5;
+  --error-muted: #fef2f2;
 }
 
 @theme inline {
@@ -27,25 +27,25 @@
 
 * {
   border-color: var(--border);
-  letter-spacing: -0.02em;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-feature-settings: "cv02", "cv05", "cv08", "ss01";
+  font-feature-settings: "cv02", "cv05", "cv08", "ss01", "tnum";
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Typography Refinement */
 h1, h2, h3, .font-black {
-  letter-spacing: -0.05em;
+  letter-spacing: -0.025em;
+  font-weight: 700; /* Reduced from 900/black for cleaner look */
 }
 
 .glass-card {
   background: #ffffff;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
 .chart-container {
@@ -64,15 +64,15 @@ h1, h2, h3, .font-black {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--muted);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #eee;
+  background: #e5e7eb;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ddd;
+  background: #d1d5db;
 }

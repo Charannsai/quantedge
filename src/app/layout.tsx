@@ -6,7 +6,6 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: 'swap',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable}`}>
-      <body className="font-sans antialiased text-slate-900 selection:bg-black selection:text-white">
+      <body className="font-sans antialiased text-slate-900" suppressHydrationWarning={true}>
         {children}
       </body>
     </html>
