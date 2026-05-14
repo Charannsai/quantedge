@@ -42,7 +42,8 @@ export const TradingChart: React.FC<ChartProps> = ({ data, predictions }) => {
     });
 
     try {
-      const series = chart.addCandlestickSeries({
+      // For lightweight-charts v5+, we use the dynamic addSeries method
+      const series = chart.addSeries('Candlestick', {
         upColor: '#10b981',
         downColor: '#ef4444',
         borderVisible: false,
