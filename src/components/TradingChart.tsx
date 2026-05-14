@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { createChart, ColorType, IChartApi, ISeriesApi, CandlestickData } from 'lightweight-charts';
+import { createChart, ColorType, IChartApi, ISeriesApi, CandlestickData, CandlestickSeries } from 'lightweight-charts';
 
 interface ChartProps {
   data: CandlestickData[];
@@ -42,8 +42,8 @@ export const TradingChart: React.FC<ChartProps> = ({ data, predictions }) => {
     });
 
     try {
-      // For lightweight-charts v5+, we use the dynamic addSeries method
-      const series = chart.addSeries('Candlestick', {
+      // For lightweight-charts v5+, we use the dynamic addSeries method with CandlestickSeries object
+      const series = chart.addSeries(CandlestickSeries, {
         upColor: '#10b981',
         downColor: '#ef4444',
         borderVisible: false,
