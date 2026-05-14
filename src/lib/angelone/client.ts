@@ -23,9 +23,9 @@ export class AngelOneClient {
     }
 
     try {
-      const clientCode = process.env.ANGELONE_CLIENT_CODE || "";
-      const password = process.env.ANGELONE_PASSWORD || "";
-      const totpSecret = process.env.ANGELONE_TOTP_SECRET || "";
+      const clientCode = (process.env.ANGELONE_CLIENT_CODE || "").trim();
+      const password = (process.env.ANGELONE_PASSWORD || "").trim();
+      const totpSecret = (process.env.ANGELONE_TOTP_SECRET || "").trim();
       
       if (!totpSecret) throw new Error("TOTP Secret is missing");
 
