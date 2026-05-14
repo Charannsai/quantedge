@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { createChart, ColorType, IChartApi, ISeriesApi, CandleData } from 'lightweight-charts';
+import { createChart, ColorType, IChartApi, ISeriesApi, CandlestickData } from 'lightweight-charts';
 
 interface ChartProps {
-  data: CandleData[];
+  data: CandlestickData[];
   predictions?: {
     color: string;
-    data: CandleData[];
+    data: CandlestickData[];
   }[];
 }
 
@@ -41,13 +41,6 @@ export const TradingChart: React.FC<ChartProps> = ({ data, predictions }) => {
       },
     });
 
-    // In lightweight-charts v5.0+, the method is addSeries('Candlestick', options)
-    // but the library still supports specific addCandlestickSeries if typed correctly.
-    // However, for v5.0+, the recommended way if the specific method is missing is:
-    // const series = chart.addSeries(CandlestickSeries, { ... });
-    // Let's use the standard method which is usually addCandlestickSeries in most versions.
-    // The error says it's not a function, which is strange for v5.2.0 unless the API changed.
-    
     try {
       const series = chart.addCandlestickSeries({
         upColor: '#10b981',
@@ -57,7 +50,9 @@ export const TradingChart: React.FC<ChartProps> = ({ data, predictions }) => {
         wickDownColor: '#ef4444',
       });
 
-      series.setData(data);
+      if (data && data.length > 0) {
+        series.setData(data);
+      }
       seriesRef.current = series;
     } catch (e) {
       console.error("Failed to add candlestick series:", e);
