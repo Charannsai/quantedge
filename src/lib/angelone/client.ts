@@ -42,7 +42,7 @@ export class AngelOneClient {
             Accept: "application/json",
             "X-UserType": "USER",
             "X-SourceID": "WEB",
-            "X-ClientLocalIP": "192.168.1.1",
+            "X-ClientLocalIP": "106.193.147.210",
             "X-ClientPublicIP": "106.193.147.210",
             "X-MACAddress": "fe80::216:3eff:fe35:33a0",
             "X-PrivateKey": this.apiKey,
@@ -55,13 +55,15 @@ export class AngelOneClient {
         this.refreshToken = response.data.data.refreshToken;
         this.feedToken = response.data.data.feedToken;
         this.lastLoginTime = Date.now();
+        console.log("AngelOne: Login Successful");
         return response.data.data;
       } else {
+        console.error("AngelOne Login Response Error:", response.data);
         throw new Error(response.data.message || "Login failed");
       }
     } catch (error: any) {
       const msg = error.response?.data?.message || error.message;
-      console.error("AngelOne Login Error:", msg);
+      console.error("AngelOne Login Network Error:", msg);
       throw new Error(msg);
     }
   }
@@ -92,6 +94,7 @@ export class AngelOneClient {
       return response.data;
     } catch (error: any) {
       const msg = error.response?.data?.message || error.message;
+      console.error("AngelOne LTP Error:", msg);
       throw new Error(msg);
     }
   }
